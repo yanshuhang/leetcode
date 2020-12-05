@@ -29,22 +29,27 @@ public class WildcardMatching {
         if (p == null || p.isEmpty()) {
             return s == null || s.isEmpty();
         }
-        int i=0, j=0, istart = -1, jstart = -1,slen = s.length(), plen = p.length();
+        int i=0, j=0, istar = -1, jstar = -1,slen = s.length(), plen = p.length();
         while (i < slen) {
+            // 优先单个字符匹配
             if (j < plen && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?')) {
                 i++;
                 j++;
+                // 单个字符不匹配,但j是星号,星号先匹配0个,但记录下位置
             } else if (j < plen && p.charAt(j) == '*') {
-                istart = i;
-                jstart = j;
+                istar = i;
+                jstar = j;
                 j++;
-            } else if (istart > -1) {
-                i = ++istart;
-                j = jstart + 1;
+                // 单个字符不匹配,j也不是星号,退到上一个星号,星号先匹配一个字符
+            } else if (istar > -1) {
+                i = ++istar;
+                j = jstar + 1;
+                // 都不成功那就是匹配失败了
             } else {
                 return false;
             }
         }
+        // 如果j指向星号,j后面的必须全是星号才行
         while (j < plen && p.charAt(j) == '*') {
             j++;
         }
