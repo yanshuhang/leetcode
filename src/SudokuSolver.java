@@ -1,8 +1,8 @@
 public class SudokuSolver {
     // 使用三个数组来记录数字是否已填入过
-    private boolean[][] row = new boolean[9][10];
-    private boolean[][] column= new boolean[9][10];
-    private boolean[][][] block = new boolean[3][3][10];
+    private final boolean[][] row = new boolean[9][10];
+    private final boolean[][] column= new boolean[9][10];
+    private final boolean[][][] block = new boolean[3][3][10];
     public void solution(char[][] board) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
