@@ -36,4 +36,24 @@ public class BinaryTreePreorderTraversal {
         }
         return ans;
     }
+
+    public List<Integer> solution2(TreeNode root) {
+        if (root == null) {
+            return Collections.emptyList();
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        List<Integer> ans = new ArrayList<>();
+        TreeNode node = root;
+        while (!deque.isEmpty() || node != null) {
+            while (node != null) {
+                deque.push(node);
+                ans.add(node.val);
+                node = node.left;
+            }
+            // 如果左节点已到底,回溯
+            node = deque.pop();
+            node = node.right;
+        }
+        return ans;
+    }
 }
