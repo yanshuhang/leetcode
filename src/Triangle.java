@@ -45,10 +45,11 @@ public class Triangle {
     // 自底向上计算
     public int solution2(List<List<Integer>> triangle) {
 //        int[] dp = triangle.get(triangle.size()-1).stream().mapToInt(Integer::intValue).toArray();
-        int[] dp = new int[triangle.size()+1];
-        for (int i = triangle.size() - 1; i >= 0; i--) {
-            for (int j = 0; j <= i; j++) {
-                dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i).get(j);
+        int size = triangle.size();
+        int[] dp = new int[size+1];
+        for (int i = size; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i-1).get(j);
             }
         }
         return dp[0];
