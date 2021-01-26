@@ -26,4 +26,30 @@ public class LongestPalindrome {
         }
         return nextIndex;
     }
+
+    // 动态规划
+    public String solution1(String s) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        String ans = "";
+        for (int len = 0; len < n; len++) {
+            for (int i = 0; i + len < n; i++) {
+                int j = i + len;
+                if (len == 0) {
+                    dp[i][j] = true;
+                } else {
+                    boolean b = s.charAt(i) == s.charAt(j);
+                    if (len == 1) {
+                        dp[i][j] = b;
+                    } else {
+                        dp[i][j] = dp[i + 1][j - 1] && b;
+                    }
+                }
+                if (dp[i][j] && (len + 1 > ans.length())) {
+                    ans = s.substring(i, j + 1);
+                }
+            }
+        }
+        return ans;
+    }
 }
