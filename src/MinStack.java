@@ -1,31 +1,44 @@
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class MinStack {
-    private final Deque<Integer> stack;
-    private final Deque<Integer> helper;
-
+    // stack存储x值和压入前的min的差diff
+    // 1. diff >= 0 说明min未改变, push之后min还是原值,top时通过diff可求出当前的x值,pop时不需修改min
+    // 2. diff < 0 说明min值有改变, push之后min为x值,top时返回min即可,pop时通过diff修改min
+    private final Deque<Long> stack;
+    private int min;
     public MinStack() {
         stack = new LinkedList<>();
-        helper = new LinkedList<>();
-        helper.push(Integer.MAX_VALUE);
     }
 
     public void push(int x) {
-        stack.push(x);
-        helper.push(Math.min(helper.peek(), x));
+        if (stack.isEmpty()) {
+            stack.push(0L);
+            min = x;
+        } else {
+            stack.push((long) x - min);
+            min = Math.min(min, x);
+        }
     }
 
     public void pop() {
-        stack.pop();
-        helper.pop();
+        Long diff = stack.pop();
+        if (diff < 0) {
+            min = (int) (min - diff);
+        }
     }
 
     public int top() {
-        return (stack.peek());
+        Long diff = stack.peek();
+        if (Objects.requireNonNull(diff) < 0) {
+            return min;
+        } else {
+            return ((int) (min + diff));
+        }
     }
 
     public int getMin() {
-        return helper.peek();
+        return min;
     }
 }
