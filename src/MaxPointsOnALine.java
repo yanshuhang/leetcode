@@ -1,4 +1,3 @@
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +10,7 @@ public class MaxPointsOnALine {
         // 遍历每个点,找到每个点对应的斜率上有多少个点
         for (int i = 0; i < points.length; i++) {
             int samePoints = 1;
+            int max = 0;
             Map<String, Integer> map = new HashMap<>();
             for (int j = i + 1; j < points.length; j++) {
                 int x = points[j][0] - points[i][0];
@@ -24,8 +24,9 @@ public class MaxPointsOnALine {
                 y = y / gdc;
                 String key = x + "#" + y;
                 map.put(key, map.getOrDefault(key, 0) + 1);
+                max = Math.max(max, map.get(key));
             }
-            res = Math.max(res, map.values().stream().max(Comparator.comparingInt(a -> a)).orElse(0) + samePoints);
+            res = Math.max(res, max + samePoints);
         }
         return res;
     }
