@@ -1,7 +1,7 @@
 public class FindPeakElement {
     public int solution(int[] nums) {
         // 遍历: 遇到的第一个比右边的大肯定就是峰值
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length - 1; i++) {
             if (nums[i] > nums[i + 1]) {
                 return i;
             }
