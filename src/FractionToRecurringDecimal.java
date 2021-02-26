@@ -12,8 +12,8 @@ public class FractionToRecurringDecimal {
         if (numerator < 0 ^ denominator < 0) {
             ans.append("-");
         }
-        long dividend = Math.abs(numerator);
-        long divisor = Math.abs(denominator);
+        long dividend = Math.abs((long) numerator);
+        long divisor = Math.abs((long) denominator);
         ans.append(dividend / divisor);
         // 求余, 为0时返回
         long remainder = dividend % divisor;
