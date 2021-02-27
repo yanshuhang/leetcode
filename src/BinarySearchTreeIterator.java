@@ -1,31 +1,30 @@
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 
 public class BinarySearchTreeIterator {
 
-    ArrayList<Integer> list;
-    int index;
+    // 使用栈模拟递归
+    ArrayDeque<TreeNode> stack;
 
     public BinarySearchTreeIterator(TreeNode root) {
-        // 中序遍历将节点存储在数组中
-        list = new ArrayList<>();
-        index = -1;
-        inorder(root);
-    }
-
-    private void inorder(TreeNode root) {
-        if (root == null) {
-            return;
+        // 初始从root开始到最左节点压入栈中
+        stack = new ArrayDeque<>();
+        while (root != null) {
+            stack.push(root);
+            root = root.left;
         }
-        inorder(root.left);
-        list.add(root.val);
-        inorder(root.right);
     }
 
     public int next() {
-        return list.get(++index);
+        TreeNode node = stack.pop();
+        TreeNode right = node.right;
+        while (right != null) {
+            stack.push(right);
+            right = right.left;
+        }
+        return node.val;
     }
 
     public boolean hasNext() {
-        return index < list.size() - 1;
+        return !stack.isEmpty();
     }
 }
