@@ -11,6 +11,17 @@ public class ReverseList {
         return pre;
     }
 
+    public static ListNode solution1(ListNode head) {
+        // 递归
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = solution1(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+
     public static ListNode reverseK(ListNode head, int k) {
         ListNode pre = null;
         ListNode cur = head;
