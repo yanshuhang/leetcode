@@ -19,6 +19,7 @@ public class ReverseList {
         ListNode newHead = solution1(head.next);
         head.next.next = head;
         head.next = null;
+
         return newHead;
     }
 
