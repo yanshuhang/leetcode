@@ -5,8 +5,8 @@ public class HappyNumber {
     public boolean solution(int n) {
         Set<Integer> set = new HashSet<>();
         while (n != 1 && !set.contains(n)) {
-            n = getNext(n);
             set.add(n);
+            n = getNext(n);
         }
         return n == 1;
     }
