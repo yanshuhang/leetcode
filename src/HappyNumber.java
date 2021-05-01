@@ -20,4 +20,15 @@ public class HappyNumber {
         }
         return sum;
     }
+
+    // 快慢指针，寻找循环
+    public boolean solution1(int n) {
+        int slow = n;
+        int fast = getNext(n);
+        while (fast != 1 && slow != fast) {
+            slow = getNext(slow);
+            fast = getNext(getNext(fast));
+        }
+        return fast == 1;
+    }
 }
