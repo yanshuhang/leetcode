@@ -26,6 +26,7 @@ public class CourseSchedule {
             }
         }
 
+        // 如果有环，环内点的入度减不到0，visited一定小于课程数
         int visited = 0;
         while (!queue.isEmpty()) {
             visited++;
@@ -38,5 +39,39 @@ public class CourseSchedule {
             }
         }
         return visited == numCourses;
+    }
+
+    public boolean solution1(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> edges = new ArrayList<>();
+        int[] visited = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            edges.add(new ArrayList<>());
+        }
+        for (int[] info : prerequisites) {
+            edges.get(info[1]).add(info[0]);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (visited[i] == 0) {
+                if (!dfs(edges, visited, i)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean dfs(List<List<Integer>> edges, int[] visited, int u) {
+        visited[u] = 1;
+        for (int v : edges.get(u)){
+            if (visited[v] == 0) {
+                if (!dfs(edges,visited, v)) {
+                    return false;
+                }
+            } else if (visited[v] == 1) {
+                return false;
+            }
+        }
+        visited[u] = 2;
+        return true;
     }
 }
