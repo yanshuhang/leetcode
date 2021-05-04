@@ -1,46 +1,56 @@
-import java.util.HashMap;
-import java.util.HashSet;
-
 public class WordDictionary {
-    // 使用hashmap和hashset
-    HashMap<Integer, HashSet<String>> map;
+    // 使用前缀树数据结构
+    private static class Trie {
+        Trie[] children;
+        boolean end;
+
+        public Trie() {
+            children = new Trie[26];
+        }
+    }
+    Trie root;
 
     public WordDictionary() {
-        map = new HashMap<>();
+        root = new Trie();
     }
 
     public void addWord(String word) {
-        map.compute(word.length(), (var key, var set) -> {
-            if (set == null) {
-                set = new HashSet<>();
+        Trie node = root;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            int index = ch - 'a';
+            if (node.children[index] == null) {
+                node.children[index] = new Trie();
             }
-            set.add(word);
-            return set;
-        });
+            node = node.children[index];
+        }
+        node.end = true;
     }
 
     public boolean search(String word) {
-        HashSet<String> set = map.get(word.length());
-        if (set == null) {
-            return false;
-        }
-        if (set.contains(word)) {
-            return true;
-        }
-        for (String s : set) {
-            if (equal(s, word)) {
-                return true;
-            }
-        }
-        return false;
+        return searchHelp(word, root);
     }
 
-    private boolean equal(String s, String word) {
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) != word.charAt(i) && word.charAt(i) != '.') {
+    public boolean searchHelp(String word, Trie root) {
+        Trie node = root;
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if (ch == '.') {
+                for (int j = 0; j < 26; j++) {
+                    if (node.children[j] != null) {
+                        if (searchHelp(word.substring(i + 1), node.children[j])) {
+                            return true;
+                        }
+                    }
+                }
                 return false;
             }
+            int index = ch - 'a';
+            if (node.children[index] == null) {
+                return false;
+            }
+            node = node.children[index];
         }
-        return true;
+        return node.end;
     }
 }
