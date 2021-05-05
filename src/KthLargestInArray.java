@@ -19,21 +19,24 @@ public class KthLargestInArray {
         }
     }
 
-    // 堆节点向下调整, 递归版本
+    // 堆节点向下调整, 遍历版本
     public void heapify(int[] a, int i, int heapSize) {
-        int l = i * 2 + 1;
-        int r = i * 2 + 2;
-        int largest = i;
-        if (l < heapSize && a[l] > a[largest]) {
-            largest = l;
+        int half = heapSize >>> 1;
+        int key = a[i];
+        while (i < half) {
+            int child = (i << 1) + 1;
+            int right = child + 1;
+            int c = a[child];
+            if (right < heapSize && c < a[right]) {
+                c = a[child = right];
+            }
+            if (key > c) {
+                break;
+            }
+            a[i] = c;
+            i = child;
         }
-        if (r < heapSize && a[r] > a[largest]) {
-            largest = r;
-        }
-        if (largest != i) {
-            swap(a, i, largest);
-            heapify(a, largest, heapSize);
-        }
+        a[i] = key;
     }
 
     public void swap(int[] a, int i, int j) {
