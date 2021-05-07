@@ -9,8 +9,8 @@ public class ContainDuplicate2 {
             if (!set.add(nums[i])) {
                 return true;
             }
-            if (set.size() > k) {
-                set.remove(nums[i - k]);
+            if (i >= k) {
+                set.remove((nums[i - k]));
             }
         }
         return false;
