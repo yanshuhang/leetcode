@@ -52,4 +52,28 @@ public class MaximalSquare {
         }
         return maxSide * maxSide;
     }
+
+    // 动态规划：滚动数组版
+    public int solution2(char[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int colums = matrix[0].length;
+        int[] dp = new int[colums+1];
+        int maxSide = 0;
+        for (char[] row : matrix) {
+            int northwest = 0;
+            for (int j = 0; j < colums; j++) {
+                int nextNorthwest = dp[j + 1];
+                if (row[j] == '1') {
+                    dp[j + 1] = Math.min(northwest, Math.min(dp[j], dp[j + 1])) + 1;
+                    maxSide = Math.max(maxSide, dp[j + 1]);
+                } else {
+                    dp[j+1] = 0;
+                }
+                northwest = nextNorthwest;
+            }
+        }
+        return maxSide * maxSide;
+    }
 }
