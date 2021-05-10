@@ -13,15 +13,15 @@ public class CountCompleteTreeNodes {
         }
         int low = 1 << height;
         int high = (1 << (height + 1)) - 1;
-        while (low < high) {
-            int mid = (low + high + 1) >>> 1;
+        while (low <= high) {
+            int mid = (low + high) >>> 1;
             if (exits(root, height, mid)) {
-                low = mid;
+                low = mid + 1;
             } else {
                 high = mid - 1;
             }
         }
-        return low;
+        return low - 1;
     }
 
     public boolean exits(TreeNode root, int height, int k) {
