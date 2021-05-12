@@ -3,33 +3,30 @@ import java.util.Objects;
 import java.util.Queue;
 
 public class MyStack {
-    Queue<Integer> queue1;
-    Queue<Integer> queue2;
+    Queue<Integer> queue;
 
     public MyStack() {
-        queue1 = new ArrayDeque<>();
-        queue2 = new ArrayDeque<>();
+        queue = new ArrayDeque<>();
     }
 
     public void push(int x) {
-        queue2.offer(x);
-        while (!queue1.isEmpty()) {
-            queue2.offer(queue1.poll());
+        int n = queue.size();
+        queue.offer(x);
+        while (n > 0) {
+            queue.offer(queue.poll());
+            n--;
         }
-        Queue<Integer> temp = queue1;
-        queue1 = queue2;
-        queue2 = temp;
     }
 
     public int pop() {
-        return Objects.requireNonNull(queue1.poll());
+        return Objects.requireNonNull(queue.poll());
     }
 
     public int top() {
-        return Objects.requireNonNull(queue1.peek());
+        return Objects.requireNonNull(queue.peek());
     }
 
     public boolean isEmpty() {
-        return queue1.isEmpty();
+        return queue.isEmpty();
     }
 }
