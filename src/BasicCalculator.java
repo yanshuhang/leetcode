@@ -19,10 +19,13 @@ public class BasicCalculator {
                 switch (preSign) {
                     case '+' :
                         stack.push(num);
+                        break;
                     case '-':
                         stack.push(-num);
+                        break;
                     case '*':
                         stack.push(stack.pop() * num);
+                        break;
                     default:
                         stack.push(stack.pop() / num);
                 }
