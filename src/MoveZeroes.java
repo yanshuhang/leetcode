@@ -7,7 +7,7 @@ public class MoveZeroes {
             }
         }
         for (int i = index; i < nums.length; i++) {
-            nums[index] = 0;
+            nums[i] = 0;
         }
     }
 }
