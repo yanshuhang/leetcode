@@ -1,8 +1,6 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.IntPredicate;
 
 public class IntersectionOfTwoArray {
     public int[] solution(int[] nums1, int[] nums2) {
