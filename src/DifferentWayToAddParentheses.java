@@ -1,11 +1,16 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class DifferentWayToAddParentheses {
+    private HashMap<String, List<Integer>> map = new HashMap<>();
     public List<Integer> solution(String expression) {
         if (expression == null || expression.length() == 0) {
             return Collections.emptyList();
+        }
+        if (map.containsKey(expression)) {
+            return map.get(expression);
         }
         List<Integer> ans = new ArrayList<>();
         for (int i = 0; i < expression.length(); i++) {
@@ -27,6 +32,7 @@ public class DifferentWayToAddParentheses {
                 }
             }
         }
+        map.put(expression, ans);
         if (ans.isEmpty()) {
             ans.add(Integer.valueOf(expression));
         }
