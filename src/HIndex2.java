@@ -1,6 +1,9 @@
 public class HIndex2 {
     public int solution(int[] citations) {
         int i = 0;
+        // 从大到小遍历引用数
+        // i是已遍历的数量
+        // 如果已遍历的数量大于下一个引用数，则当前i即使高引用次数，否则继续遍历
         while (i < citations.length && citations[citations.length - 1 - i] > i) {
             i++;
         }
