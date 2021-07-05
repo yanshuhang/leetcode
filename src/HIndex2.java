@@ -25,4 +25,22 @@ public class HIndex2 {
         }
         return 0;
     }
+
+    public int solution2(int[] citations) {
+        // 二分法
+        int len = citations.length;
+        int left = 0;
+        int right = len - 1;
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (citations[mid] == len - mid) {
+                return len - mid;
+            } else if (citations[mid] > len - mid) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return len - left;
+    }
 }
