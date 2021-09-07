@@ -25,4 +25,22 @@ public class MajorityElement {
         }
         return num;
     }
+
+    public int solution2(int[] nums) {
+        int count = 0;
+        int num = 0;
+        for (int j : nums) {
+            if (count == 0) {
+                num = j;
+                count++;
+                continue;
+            }
+            if (num == j) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return num;
+    }
 }
